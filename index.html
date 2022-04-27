@@ -81,18 +81,21 @@
         map,
         switchMap,
         debounceTime,
+        filter,
         distinctUntilChanged,
         tap,
         retry,
         partition,
         finalize,
+        share,
       } = rxjs.operators;
       const { ajax } = rxjs.ajax;
 
       const keyup$ = fromEvent(document.getElementById("search"), "keyup").pipe(
         debounceTime(300),
         map((event) => event.target.value),
-        distinctUntilChanged()
+        distinctUntilChanged(),
+        share()
       );
 
       let [user$, reset$] = keyup$.pipe(
